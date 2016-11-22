@@ -51,7 +51,7 @@
 			get_template_part( 'author-bio' );
 		endif;
 	?>
-
+    <?php the_post_thumbnail( 'category-120-120' ); ?>
 	<footer class="entry-footer">
 		<?php /*meat_entry_meta();*/ ?>
 		<?php edit_post_link( __( 'Edit', 'meat' ), '<span class="edit-link">', '</span>' ); ?>
