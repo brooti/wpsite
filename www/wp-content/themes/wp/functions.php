@@ -8,6 +8,8 @@ function wp_broot_setup() {
 	add_image_size( 'category-150-180', 150, 180 );
 	add_image_size( 'category-45-45', 45, 45 );
 	add_image_size( 'category-60-100', 60, 100 );
+	
+	add_image_size( 'front-news', 170, 80);
 }
 ?>
 <?php

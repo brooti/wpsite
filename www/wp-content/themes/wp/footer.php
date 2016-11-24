@@ -7,37 +7,36 @@
                             <a class="btn prev"><i class="fa fa-angle-left"></i></a>
                             <a class="btn next"><i class="fa fa-angle-right"></i></a>
                         </div>
+						
+						<?php
+	$items = get_posts( array(
+			'post_type' => 'carousel',
+			'post_status' => 'publish',
+			'numberposts' => 0,
+			'orderby' => 'post_date',
+			'order' => 'DESC',
+		)
+	);
+	$count = count($items);
+?>
+						
+						
+						
+						
+						
+						
+						
                         <div id="owl-demo" class="owl-carousel">
+						
+						<?php foreach ($items as $key) : ?>
+						
                             <div class="item"> 
-                            	<a href="#"><img src="<?php echo bloginfo('template_url'); ?>/images/tm-170x80-1.jpg" alt=""></a>
+                            
+				
+								  <?php echo get_the_post_thumbnail($key, 'front-news'); ?>
                           	</div>
-                            <div class="item">
-                                <a href="#"><img src="<?php echo bloginfo('template_url'); ?>/images/tm-170x80-2.jpg" alt=""></a>
-                            </div>
-                            <div class="item">
-                                <a href="#"><img src="<?php echo bloginfo('template_url'); ?>/images/tm-170x80-1.jpg" alt=""></a>
-                            </div>
-                            <div class="item">
-                                <a href="#"><img src="<?php echo bloginfo('template_url'); ?>/images/tm-170x80-2.jpg" alt=""></a>
-                            </div>
-                            <div class="item">
-                                <a href="#"><img src="<?php echo bloginfo('template_url'); ?>/images/tm-170x80-1.jpg" alt=""></a>
-                            </div>
-                            <div class="item">
-                                <a href="#"><img src="<?php echo bloginfo('template_url'); ?>/images/tm-170x80-2.jpg" alt=""></a>
-                            </div>
-                            <div class="item">
-                                <a href="#"><img src="<?php echo bloginfo('template_url'); ?>/images/tm-170x80-1.jpg" alt=""></a>
-                            </div>
-                            <div class="item">
-                                <a href="#"><img src="<?php echo bloginfo('template_url'); ?>/images/tm-170x80-2.jpg" alt=""></a>
-                            </div>
-                            <div class="item">
-                                <a href="#"><img src="<?php echo bloginfo('template_url'); ?>/images/tm-170x80-1.jpg" alt=""></a>
-                            </div>
-                            <div class="item">
-                                <a href="#"><img src="<?php echo bloginfo('template_url'); ?>/images/tm-170x80-2.jpg" alt=""></a>
-                            </div>
+                           
+								<?php endforeach; ?>
                         </div> <!-- /#owl-demo -->
                     </div> <!-- /.col-md-12 -->
                 </div> <!-- /.row -->

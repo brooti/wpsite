@@ -1,16 +1,13 @@
 <?php
 /**
- * @package Akismet
+ * @package Custom Meat Carousel
  */
 /*
-Plugin Name: Akismet
-Plugin URI: https://akismet.com/
-Description: Used by millions, Akismet is quite possibly the best way in the world to <strong>protect your blog from spam</strong>. It keeps your site protected even while you sleep. To get started: 1) Click the "Activate" link to the left of this description, 2) <a href="https://akismet.com/get/">Sign up for an Akismet plan</a> to get an API key, and 3) Go to your Akismet configuration page, and save your API key.
-Version: 3.2
-Author: Automattic
-Author URI: https://automattic.com/wordpress-plugins/
+Plugin Name: Custom Meat Carousel
+Description: Provide carousel type
+Version: 1.0
+Author: Grand
 License: GPLv2 or later
-Text Domain: akismet
 */
 
 /*
@@ -31,33 +28,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 Copyright 2005-2015 Automattic, Inc.
 */
 
-// Make sure we don't expose any info if called directly
-if ( !function_exists( 'add_action' ) ) {
-	echo 'Hi there!  I\'m just a plugin, not much I can do when called directly.';
-	exit;
-}
+add_action( 'init', 'carousel_register_post_carousel' );
 
-define( 'AKISMET_VERSION', '3.2' );
-define( 'AKISMET__MINIMUM_WP_VERSION', '3.7' );
-define( 'AKISMET__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
-define( 'AKISMET_DELETE_LIMIT', 100000 );
+function carousel_register_post_carousel()
+{
+	$labels = array(
+		'name'               => _x( 'Carousel', 'post type general name', 'carousel' ),
+		'singular_name'      => _x( 'Carousel', 'post type singular name', 'carousel' ),
+		'menu_name'          => _x( 'Carousel', 'admin menu', 'boat' ),
+		'name_admin_bar'     => _x( 'Carousel', 'add new on admin bar', 'carousel' ),
+		'add_new'            => _x( 'Add New', 'carousel', 'carousel' ),
+		'add_new_item'       => __( 'Add New Carousel', 'carousel' ),
+		'new_item'           => __( 'New Carousel', 'carousel' ),
+		'edit_item'          => __( 'Edit Carousel', 'carousel' ),
+		'view_item'          => __( 'View Carousel', 'carousel' ),
+		'all_items'          => __( 'All Carousel', 'carousel' ),
+		'search_items'       => __( 'Search Carousel', 'carousel' ),
+		'parent_item_colon'  => __( 'Parent Carousel:', 'carousel' ),
+		'not_found'          => __( 'No carousel found.', 'carousel' ),
+		'not_found_in_trash' => __( 'No carousel found in Trash.', 'carousel' )
+	);
 
-register_activation_hook( __FILE__, array( 'Akismet', 'plugin_activation' ) );
-register_deactivation_hook( __FILE__, array( 'Akismet', 'plugin_deactivation' ) );
+	$args = array(
+		'labels'             => $labels,
+		'description'        => __( 'Description.', 'carousel' ),
+		'public'             => true,
+		'publicly_queryable' => true,
+		'show_ui'            => true,
+		'show_in_menu'       => true,
+		'query_var'          => true,
+		'capability_type'    => 'post',
+		'has_archive'        => false,
+		'hierarchical'       => false,
+		'menu_position'      => null,
+		'supports'           => array( 'title', 'thumbnail', 'excerpt' )
+	);
 
-require_once( AKISMET__PLUGIN_DIR . 'class.akismet.php' );
-require_once( AKISMET__PLUGIN_DIR . 'class.akismet-widget.php' );
-
-add_action( 'init', array( 'Akismet', 'init' ) );
-
-if ( is_admin() || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
-	require_once( AKISMET__PLUGIN_DIR . 'class.akismet-admin.php' );
-	add_action( 'init', array( 'Akismet_Admin', 'init' ) );
-}
-
-//add wrapper class around deprecated akismet functions that are referenced elsewhere
-require_once( AKISMET__PLUGIN_DIR . 'wrapper.php' );
-
-if ( defined( 'WP_CLI' ) && WP_CLI ) {
-	require_once( AKISMET__PLUGIN_DIR . 'class.akismet-cli.php' );
+	register_post_type( 'carousel', $args );
 }

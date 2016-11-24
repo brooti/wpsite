@@ -27,6 +27,6 @@
 		?>
 	</div><!-- .entry-content -->
 
-	
+	<div>  <img src="<?php echo get_the_post_thumbnail_url(); ?>" width="200" height="200" alt="">	</div>
 
 </article><!-- #post-## -->

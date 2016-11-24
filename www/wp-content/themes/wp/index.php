@@ -1,25 +1,30 @@
 <?php get_header(); ?>
    
     <div class="content-section">
-        <div class="container">
-            <div class="row">
-			<h2>Выводим посты</h2>
-
-<?php
-				// Start the loop.
-				while ( have_posts() ) : the_post();
-
-					// Include the page content template.
-					get_template_part( 'content', 'page' );
-
-					$thumbnail = get_the_post_thumbnail( 21, $size, $attr );
-		add_theme_support($thumbnail);
-
-				// End the loop.
-				endwhile;
-				?>
-
-			</div>
+		<?php
+			$posts = get_posts( array(
+					'post_type' => 'post',
+					'post_status' => 'publish',
+					'numberposts' => 3,
+					'orderby' => 'post_date',
+					'order' => 'DESC',
+				)
+			);
+		?>
+		<div class="container thumbs">
+			<?php foreach ($posts as $post) : ?>
+				<div class="col-md-4 col-sm-6">
+                    <div class="product-item">
+                        <div class="product-thumbnail">
+                            <?php echo get_the_post_thumbnail($post, 'front-news'); ?>
+                        </div> <!-- /.product-thum -->
+                        <div class="product-content">
+                            <h5><a href="<?php echo get_permalink($post); ?>"><?=get_the_title($post); ?></a></h5>
+                            <p><?=get_the_excerpt($post); ?></p>
+                        </div> <!-- /.product-content -->
+                    </div> <!-- /.product-item -->
+                </div> <!-- /.col-md-3 -->
+			<?php endforeach; ?>
 		</div>
 	</div>
 
